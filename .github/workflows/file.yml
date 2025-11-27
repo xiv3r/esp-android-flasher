@@ -19,7 +19,7 @@ jobs:
       run: |
         mkdir -p downloads
         cd downloads
-        wget -O ArduinoDroid_v7.0.1.apk https://a2zapk.io/dlpage/r.php?user=eHZ5M1BBK0RmSThyWWFTVUNaL3czZmRsMTQxZHRraFlPbFVkY25XV0VBeU1rRnBsNERRSmtyZ2lndGY2UHdzQQ==&URL=https://fs20.uploadrar.com:183/d/mxsrw4tgamubi775iwh7d2ohq6thrrzu6ekhdmow527kvvbd2uieh3qddc2ggvccgzi5fptf/ArduinoDroid-Arduino-ESPIDEv7.0.1b715arm648.0_edbyyouarefinished-a2zapk.io.apk
+        # wget -O ArduinoDroid_v7.0.1.apk https://a2zapk.io/dlpage/r.php?user=eHZ5M1BBK0RmSThyWWFTVUNaL3czZmRsMTQxZHRraFlPbFVkY25XV0VBeU1rRnBsNERRSmtyZ2lndGY2UHdzQQ==&URL=https://fs20.uploadrar.com:183/d/mxsrw4tgamubi775iwh7d2ohq6thrrzu6ekhdmow527kvvbd2uieh3qddc2ggvccgzi5fptf/ArduinoDroid-Arduino-ESPIDEv7.0.1b715arm648.0_edbyyouarefinished-a2zapk.io.apk
         wget -O ESP32_Flasher_4.0.9.apk https://d.apkpure.com/b/XAPK/com.esp_flash.esp_flash_app?version=latest
         
     - name: Determine release tag
