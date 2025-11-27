@@ -1,4 +1,4 @@
-name: 22.03.5
+name: Flasher app
 
 on:
   workflow_dispatch:
