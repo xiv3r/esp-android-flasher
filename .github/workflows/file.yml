@@ -1,10 +1,10 @@
-name: Fetch File
+name: File
 
 on:
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
   release:
-    types: [published]  # Trigger when a new release is published
-
+    types: [published]
+    
 jobs:
   download-and-release:
     runs-on: ubuntu-latest
@@ -13,7 +13,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0  # Fetch all history for tags
+        fetch-depth: 0
 
     - name: Download files
       run: |
@@ -22,27 +22,60 @@ jobs:
         wget 
         wget
         wget
-
-    - name: Create and push tag
-      id: tag_version
+        
+    - name: Determine release tag
+      id: get_tag
       run: |
         if [ "${{ github.event_name }}" == "release" ]; then
-          VERSION="${{ github.event.release.tag_name }}"
+          TAG_NAME="${{ github.event.release.tag_name }}"
         else
-            VERSION="flasher"
+          TAG_NAME="Apps"
         fi
-        
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git tag -a "$VERSION" -m "Release $VERSION"
-        git push origin "$VERSION"
-        
-        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
 
-    - name: Upload files to release
+    - name: Delete existing release assets
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: releases } = await github.rest.repos.listReleases({
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          });
+          
+          const targetRelease = releases.find(release => release.tag_name === '${{ steps.get_tag.outputs.tag_name }}');
+          
+          if (targetRelease) {
+            console.log(`Found release with tag: ${{ steps.get_tag.outputs.tag_name }}`);
+            console.log(`Release ID: ${targetRelease.id}`);
+            
+            const { data: assets } = await github.rest.repos.listReleaseAssets({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: targetRelease.id
+            });
+            
+            console.log(`Found ${assets.length} assets to delete`);
+            
+            for (const asset of assets) {
+              console.log(`Deleting asset: ${asset.name} (ID: ${asset.id})`);
+              await github.rest.repos.deleteReleaseAsset({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                asset_id: asset.id
+              });
+            }
+            
+            console.log('All existing assets deleted');
+          } else {
+            console.log(`No release found with tag: ${{ steps.get_tag.outputs.tag_name }}`);
+          }
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload files to existing release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ steps.tag_version.outputs.version }}
+        tag_name: ${{ steps.get_tag.outputs.tag_name }}
         files: |
           downloads/*.*
       env:
