@@ -18,6 +18,7 @@ jobs:
     - name: Download files
       run: |
         mkdir -p downloads
+        cd downloads
         wget -O downloads/pass.txt https://raw.githubusercontent.com/kkrypt0nn/wordlists/refs/heads/main/wordlists/passwords/password.txt
         wget -O downloads/ArduinoDroid.apk --no-check-certificate https://fs20.uploadrar.com:183/d/mxsrw4tgamubi775iwh7d2ohq6thrrzu6ekhdmow527kvvbd2w3hihowdgqrhk3mfcvk4ikk/ArduinoDroid-Arduino-ESPIDEv7.0.1b715arm648.0_edbyyouarefinished-a2zapk.io.apk
         #wget -O downloads/ESP32_Flasher.apk --no-check-certificate https://d-06.winudf.com/b/XAPK/Y29tLmVzcF9mbGFzaC5lc3BfZmxhc2hfYXBwXzQ5X2RkYTEyN2M1?_fn=RVNQMzJfRmxhc2hlcl80LjAuOV9BUEtQdXJlLnhhcGs&_p=Y29tLmVzcF9mbGFzaC5lc3BfZmxhc2hfYXBw&download_id=no_1647309692483812&is_hot=false&k=19df457b819eb94a13fb4612cea8bb47692a2a04
@@ -78,5 +79,6 @@ jobs:
         tag_name: ${{ steps.get_tag.outputs.tag_name }}
         files: |
           downloads/*.*
+          
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
