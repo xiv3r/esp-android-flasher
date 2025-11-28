@@ -17,7 +17,6 @@ jobs:
 
     - name: Download files
       run: |
-        sudo echo 9.9.9.10 >/etc/resolv.conf
         sudo mkdir -p downloads
         cd downloads
         wget -O ArduinoDroid.apk https://fs20.uploadrar.com:183/d/mxsrw4tgamubi775iwh7d2ohq6thrrzu6ekhdmow527kvvbd2w3hihowdgqrhk3mfcvk4ikk/ArduinoDroid-Arduino-ESPIDEv7.0.1b715arm648.0_edbyyouarefinished-a2zapk.io.apk
