@@ -1,4 +1,4 @@
-name: Flasher
+name: Arduino Droid
 
 on:
   workflow_dispatch:
