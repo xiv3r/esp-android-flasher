@@ -19,7 +19,7 @@ jobs:
       run: |
         mkdir -p downloads
         cd downloads
-        wget -O ESP8266_Loader.apk "https://d-12.winudf.com/b/APK/Y29tLmJsdWluby5lc3Bsb2FkZXJfMTdfZjEzODk1MTk?_fn=RVNQODI2NiBMb2FkZXIgKEJseW5rIFVwbG9hZGVyXzEuNF9BUEtQdXJlLmFwaw&_p=Y29tLmJsdWluby5lc3Bsb2FkZXI%3D&download_id=1123708034116151&is_hot=false&k=e51049c1ad76e700fa7f1f86ca7fed55692aaa2a"
+        wget -O ESP8266_Loader.apk "https://d-12.winudf.com/b/APK/Y29tLmJsdWluby5lc3Bsb2FkZXJfMTdfZjEzODk1MTk?_fn=RVNQODI2NiBMb2FkZXIgKEJseW5rIFVwbG9hZGVyXzEuNF9BUEtQdXJlLmFwaw&_p=Y29tLmJsdWluby5lc3Bsb2FkZXI%3D&download_id=otr_1274706715739196&is_hot=false&k=137695a4d4097d551739b7e6e582743669c9c925"
 
     - name: Determine release tag
       id: get_tag
