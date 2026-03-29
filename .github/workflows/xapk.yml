@@ -19,7 +19,7 @@ jobs:
       run: |
         mkdir -p downloads
         cd downloads
-        wget -O XAPK_Installer.apk --no-check-certificate https://cloud.9mod.space/XAPK%20Installer/XAPK%20Installer%20v4.6.8%20%28Premium%29.apk?token=TVRjM05EYzFOVGt5TlE9PQ%3D%3Dhed-a2zapk.io.apk
+        wget -O XAPK_Installer.apk --no-check-certificate https://gsf-fl.softonic.com/897/534/b3a196ca1b1fec56f648a2d0e2e31ba34e/com-wuliang-xapkinstaller-162-69212051-5769fdbcb801c18be318ab07649c8813.apk?Expires=1774797250&Signature=f70d66d079088b3cee4be2d97ec4f936d5a3dbe8&url=https://xapk-installer.en.softonic.com/android&Filename=com-wuliang-xapkinstaller-162-69212051-5769fdbcb801c18be318ab07649c8813.apk
         
     - name: Determine release tag
       id: get_tag
