@@ -19,7 +19,7 @@ jobs:
       run: |
         mkdir -p downloads
         cd downloads
-        wget -O ESPFlash.xapk "https://d-03.winudf.com/b/XAPK/aW8uc2VyaWFsZmxvdy5lc3BmbGFzaF8yN19jMGNlNjFkZg?_fn=RVNQRmxhc2hfMS4xLjVfQVBLUHVyZS54YXBr&_p=aW8uc2VyaWFsZmxvdy5lc3BmbGFzaA%3D%3D&download_id=1491508313790002&is_hot=false&k=c89407d93bed0fab234063a36837ba16692aa704"
+        wget -O ESPFlash.xapk "https://d-13.winudf.com/b/XAPK/aW8uc2VyaWFsZmxvdy5lc3BmbGFzaF80MV8zZTQ3YTBmZA?_fn=RVNQRmxhc2gtRVNQMzIvRVNQODI2NkZsYXNoZXJfMS4yLjlfQVBLUHVyZS54YXBr&_p=aW8uc2VyaWFsZmxvdy5lc3BmbGFzaA%3D%3D&download_id=1716004274627702&is_hot=false&k=831012003d3a553a13a0fdfae241612569c9c983"
       
     - name: Determine release tag
       id: get_tag
