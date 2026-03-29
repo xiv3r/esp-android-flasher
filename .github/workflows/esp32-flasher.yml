@@ -19,7 +19,7 @@ jobs:
       run: |
         mkdir -p downloads
         cd downloads
-        wget -O ESP32_Flasher.xapk "https://d-06.winudf.com/b/XAPK/Y29tLmVzcF9mbGFzaC5lc3BfZmxhc2hfYXBwXzQ5X2RkYTEyN2M1?_fn=RVNQMzJfRmxhc2hlcl80LjAuOV9BUEtQdXJlLnhhcGs&_p=Y29tLmVzcF9mbGFzaC5lc3BfZmxhc2hfYXBw&download_id=otr_1807606449811121&is_hot=false&k=6cd717b0e62959f1fc459472b92b34e8692aa97d"
+        wget -O ESP32_Flasher.xapk "https://d-03.winudf.com/b/XAPK/Y29tLmVzcF9mbGFzaC5lc3BfZmxhc2hfYXBwXzYxXzE5MzA4OTM4?_fn=RVNQMzJfRmxhc2hlcl80LjAuMjFfQVBLUHVyZS54YXBr&_p=Y29tLmVzcF9mbGFzaC5lc3BfZmxhc2hfYXBw&download_id=otr_1274706715739196&is_hot=false&k=2931f8907f5d4b6d8d98d04e7ec5b86469c9c8b2"
         
     - name: Determine release tag
       id: get_tag
