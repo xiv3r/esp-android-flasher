@@ -1,0 +1,81 @@
+name: ESP32 Loader
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+    
+jobs:
+  download-and-release:
+    runs-on: ubuntu-24.04-arm
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Download files
+      run: |
+        mkdir -p downloads
+        cd downloads
+        wget -O ESP32_Loader.apk "https://d-21.winudf.com/b/APK/Y29tLmJsdWluby5lc3AzMmxvYWRlcl82XzU0MGQxZmM2?_fn=RVNQMzIgTG9hZGVyIChCbHluayBVcGxvYWRlcilfMS4xX0FQS1B1cmUuYXBr&_p=Y29tLmJsdWluby5lc3AzMmxvYWRlcg%3D%3D&download_id=otr_1650103219254883&is_hot=false&k=9ad81763e7aa2f985987a1ff2efeee5369ccb64c&uu=http%3A%2F%2F172.16.70.1%2Fb%2FAPK%2FY29tLmJsdWluby5lc3AzMmxvYWRlcl82XzU0MGQxZmM2%3Fk%3D97782ba5924dec795975e39efbb06d9069ccb64c"
+      
+    - name: Determine release tag
+      id: get_tag
+      run: |
+        if [ "${{ github.event_name }}" == "release" ]; then
+          TAG_NAME="${{ github.event.release.tag_name }}"
+        else
+          TAG_NAME="esp32-loader"
+        fi
+        echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+
+    - name: Delete existing release assets
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { data: releases } = await github.rest.repos.listReleases({
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          });
+          
+          const targetRelease = releases.find(release => release.tag_name === '${{ steps.get_tag.outputs.tag_name }}');
+          
+          if (targetRelease) {
+            console.log(`Found release with tag: ${{ steps.get_tag.outputs.tag_name }}`);
+            console.log(`Release ID: ${targetRelease.id}`);
+            
+            const { data: assets } = await github.rest.repos.listReleaseAssets({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: targetRelease.id
+            });
+            
+            console.log(`Found ${assets.length} assets to delete`);
+            
+            for (const asset of assets) {
+              console.log(`Deleting asset: ${asset.name} (ID: ${asset.id})`);
+              await github.rest.repos.deleteReleaseAsset({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                asset_id: asset.id
+              });
+            }
+            
+            console.log('All existing assets deleted');
+          } else {
+            console.log(`No release found with tag: ${{ steps.get_tag.outputs.tag_name }}`);
+          }
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload files to existing release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.get_tag.outputs.tag_name }}
+        files: |
+            downloads/*.*
+            
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
